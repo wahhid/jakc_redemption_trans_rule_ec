@@ -8,7 +8,7 @@ SCHEMAS_SELECTIONS = [
     ('cardtype','Card Type'),
     ('tenant','Tenant'),
     ('tenanttype','Tenant Type'),
-    ('bankcard','Bank Card'),
+    ('bank','Bank'),
     ('age','Customer Age')
 ]
 
@@ -36,8 +36,7 @@ class rdm_rules(osv.osv):
     _columns = {
         'name': fields.char('Name', size=200, required=True),
         'apply_for': fields.selection([('1','Coupon'),('2','Point')],'Apply For',required=True),
-        'rule_schema': fields.selection(SCHEMAS_SELECTIONS,'Schema',required=True),           
-        'birthday': fields.boolean('Birthday'),
+        'rule_schema': fields.selection(SCHEMAS_SELECTIONS,'Schema',required=True),                   
         'gender': fields.many2one('rdm.customer.gender','Gender'),                
         'day': fields.date('Day'),    
         'day_name': fields.selection(DAY_NAME_SELECTIONS,'Day Name'),           
@@ -45,7 +44,9 @@ class rdm_rules(osv.osv):
         'tenant_ids': fields.one2many('rdm.rules.tenant','rules_id','Tenant'),
         'tenant_category_ids': fields.one2many('rdm.rules.tenant.category','rules_id','Tenant Category'),
         'bank_ids': fields.one2many('rdm.rules.bank','rules_id','Bank'),        
+        'bank_card_ids': fields.one2many('rdm.rules.bank.card','rules_id','Bank Card'),
         'age_ids': fields.one2many('rdm.rules.customer.age','rules_id','Age'),
+        'gender_ids': fields.one2many('rdm.rules.gender','rules_id','Gender'),
         'operation': fields.selection([('add','Add'),('multiple','Multiple')],'Operation',required=True),
         'calculation': fields.selection([('terbesar','Terbesar'),('ditotal','Di Total')],'Method'),
         'quantity': fields.float('Quantity',required=True),
@@ -56,6 +57,16 @@ class rdm_rules(osv.osv):
     }
     
 rdm_rules()
+
+class rdm_rules_gender(osv.osv):
+    _name = "rdm.rules.gender"
+    _description = "Redemption Rule Card Type"
+    _columns = {
+        'rules_id': fields.many2one('rdm.rules','Rules ID', readonly=True),
+        'gender_id': fields.many2one('rdm.customer.gender','Gender'),
+    }
+
+rdm_rules_gender()
 
 class rdm_rules_card_type(osv.osv):
     _name = "rdm.rules.card.type"
@@ -104,7 +115,7 @@ class rdm_rules_bank(osv.osv):
     _description = "Redemption Rule Bank"
     _columns = {
         'rules_id': fields.many2one('rdm.rules','Rules ID', readonly=True),
-        'bank_card_id': fields.many2one('rdm.bank','Bank') 
+        'bank_id': fields.many2one('rdm.bank','Bank')        
     }
     
 class rdm_rules_bank_card(osv.osv):
