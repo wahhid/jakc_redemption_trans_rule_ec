@@ -11,11 +11,48 @@
                 	<sheet>
 	                    <group colspan="4">                            
 	                        <field name="name"/>                            
-	                        <field name="apply_for"/>                            
-	                        <field name="rule_schema"/>                            
+	                        <field name="apply_for"/>                            	                                            
 	                        <field name="operation"/>                            
 	                        <field name="quantity"/>                        
 	                    </group>
+	                    <notebook colspan="4">
+	                    	<page string="Detail">
+	                    		<field name="rules_detail_ids">
+	                    			<tree string="Schemas">
+	                    				<field name="rule_schema"/>
+	                    			</tree>
+	                    		</field>
+	                    	</page>	                                   	                       
+	                    </notebook>                		                		
+                	</sheet>
+                </form>
+            </field>
+        </record>
+		
+        <record model="ir.ui.view" id="view_rdm_rules_tree">
+            <field name="name">rdm.rules.tree</field>
+            <field name="model">rdm.rules</field>			
+            <field name="type">tree</field>						
+            <field name="arch" type="xml">
+                <tree string="Rules">
+                    <field name="name"/>                            
+                    <field name="apply_for"/>                                                                 
+                    <field name="operation"/>                            
+                    <field name="quantity"/>                             
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_rdm_rules_detail_form">
+            <field name="name">rdm.rules.detail.form</field>
+            <field name="model">rdm.rules.detail</field>						
+            <field name="type">form</field>						
+            <field name="arch" type="xml">
+                <form string="Rules Detail"  version="7.0"> 
+                	<sheet>	                   
+                		<group>
+                			<field name="rule_schema"/>
+                		</group>
 	                    <notebook colspan="4">
 	                        <page string="Day" attrs="{'invisible':[('rule_schema','!=','day')]}">
 	                            <field name="day"/>                        
@@ -68,21 +105,6 @@
             </field>
         </record>
 		
-        <record model="ir.ui.view" id="view_rdm_rules_tree">
-            <field name="name">rdm.rules.tree</field>
-            <field name="model">rdm.rules</field>			
-            <field name="type">tree</field>						
-            <field name="arch" type="xml">
-                <tree string="Rules">
-                    <field name="name"/>                            
-                    <field name="apply_for"/>                            
-                    <field name="rule_schema"/>                            
-                    <field name="operation"/>                            
-                    <field name="quantity"/>                             
-                </tree>
-            </field>
-        </record>
-        
         
 		<!-- RDM/RULES CUSTOMER AGE -->		
         <record model="ir.ui.view" id="view_rdm_rules_customer_age_form">
