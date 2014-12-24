@@ -20,6 +20,7 @@
 	                    		<field name="rules_detail_ids">
 	                    			<tree string="Schemas">
 	                    				<field name="rule_schema"/>
+	                    				<field name="operation"/>	                    				
 	                    			</tree>
 	                    		</field>
 	                    	</page>	                                   	                       
@@ -52,6 +53,7 @@
                 	<sheet>	                   
                 		<group>
                 			<field name="rule_schema"/>
+                			<field name="operation"/>
                 		</group>
 	                    <notebook colspan="4">
 	                        <page string="Day" attrs="{'invisible':[('rule_schema','!=','day')]}">

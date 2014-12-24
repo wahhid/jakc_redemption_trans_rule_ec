@@ -34,6 +34,11 @@ DAY_NAME_SELECTIONS = [
     ('07','Saturday')
 ]
 
+OPERATION_SELECTIONS = [                    
+    ('or','OR'),
+    ('and','AND'),
+]
+
 class rdm_rules(osv.osv):
     _name = "rdm.rules"
     _description = "Redemption Rules"
@@ -57,7 +62,8 @@ class rdm_rules_detail(osv.osv):
     _description = "Redemption Rules Detail"
     _columns = {
         'rules_id': fields.many2one('rdm.rules','Rules'),
-        'rule_schema': fields.selection(SCHEMAS_SELECTIONS,'Schema',required=True),                   
+        'rule_schema': fields.selection(SCHEMAS_SELECTIONS,'Schema',required=True),
+        'operation': fields.selection(OPERATION_SELECTIONS, 'Operation', required=True),                   
         'gender': fields.many2one('rdm.customer.gender','Gender'),                
         'day': fields.date('Day'),    
         'day_name': fields.selection(DAY_NAME_SELECTIONS,'Day Name'),           
@@ -68,6 +74,9 @@ class rdm_rules_detail(osv.osv):
         'bank_card_ids': fields.one2many('rdm.rules.bank.card','rules_detail_id','Bank Card'),
         'age_ids': fields.one2many('rdm.rules.customer.age','rules_detail_id','Age'),
         'gender_ids': fields.one2many('rdm.rules.gender','rules_detail_id','Gender'),                                
+    }
+    _defaults = {
+        'operation': lambda *a: 'and',
     }
 rdm_rules_detail()
 
