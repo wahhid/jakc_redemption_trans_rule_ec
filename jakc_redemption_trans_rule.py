@@ -11,9 +11,6 @@ SCHEMAS_SELECTIONS = [
     ('bank','Bank'),
     ('bankcard','Bank Card'),
     ('age','Customer Age'),
-    ('goods','Goods'),
-    ('coupon','Coupon'),
-    ('voucher','Voucher'),
 ]
 
 OPERATOR_SELECTIONS = [
