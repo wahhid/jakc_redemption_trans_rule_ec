@@ -100,13 +100,32 @@
 	                        </page>                                               
 	                        <page string="Gender" attrs="{'invisible':[('rule_schema','!=','gender')]}">
 	                            <field name="gender_ids" widget="one2many_list" nolabel="1" context="{'rules_id': active_id}"/>
-	                        </page> 	                        	                        
+	                        </page> 	                 
+	                        <page string="Participant" attrs="{'invisible':[('rule_schema','!=','participant')]}">
+	                            <field name="participant_ids" widget="one2many_list" nolabel="1" context="{'rules_id': active_id}"/>
+	                        </page> 	                 
+	                               	                        
 	                    </notebook>                		                		
                 	</sheet>
                 </form>
             </field>
         </record>
 		
+		<!-- RDM/RULES PARTICIPANT -->		
+        <record model="ir.ui.view" id="view_rdm_rules_participant_form">
+            <field name="name">rdm.rules.participant.form</field>
+            <field name="model">rdm.rules.participant</field>						
+            <field name="type">form</field>						
+            <field name="arch" type="xml">
+                <form string="Rules"  version="7.0"> 
+                	<sheet>
+	                    <group colspan="4">       	                    	                   
+	                        <field name="participant_id"/>                            
+	                    </group>	                              		                	
+                	</sheet>
+                </form>
+            </field>
+        </record>		
         
 		<!-- RDM/RULES CUSTOMER AGE -->		
         <record model="ir.ui.view" id="view_rdm_rules_customer_age_form">

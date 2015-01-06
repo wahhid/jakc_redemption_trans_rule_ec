@@ -11,6 +11,8 @@ SCHEMAS_SELECTIONS = [
     ('bank','Bank'),
     ('bankcard','Bank Card'),
     ('age','Customer Age'),
+    ('participant','Participant Type'),
+    
 ]
 
 OPERATOR_SELECTIONS = [
@@ -34,6 +36,11 @@ DAY_NAME_SELECTIONS = [
 OPERATION_SELECTIONS = [                    
     ('or','OR'),
     ('and','AND'),
+]
+
+AVAILABLE_PARTICIPANT = [
+    ('1','AYC non participant tenant'),
+    ('2','AYC participant tenant')
 ]
 
 class rdm_rules(osv.osv):
@@ -67,6 +74,7 @@ class rdm_rules_detail(osv.osv):
         'card_type_ids': fields.one2many('rdm.rules.card.type','rules_detail_id','Card Type'),
         'tenant_ids': fields.one2many('rdm.rules.tenant','rules_detail_id','Tenant'),
         'tenant_category_ids': fields.one2many('rdm.rules.tenant.category','rules_detail_id','Tenant Category'),
+        'participant_ids': fields.one2many('rdm.rules.participant','rules_detail_id','Participant'),
         'bank_ids': fields.one2many('rdm.rules.bank','rules_detail_id','Bank'),        
         'bank_card_ids': fields.one2many('rdm.rules.bank.card','rules_detail_id','Bank Card'),
         'age_ids': fields.one2many('rdm.rules.customer.age','rules_detail_id','Age'),
@@ -77,6 +85,7 @@ class rdm_rules_detail(osv.osv):
     }
 rdm_rules_detail()
 
+
 class rdm_rules_gender(osv.osv):
     _name = "rdm.rules.gender"
     _description = "Redemption Rule Card Type"
@@ -86,6 +95,16 @@ class rdm_rules_gender(osv.osv):
     }
 
 rdm_rules_gender()
+
+class rdm_rules_participant(osv.osv):
+    _name = "rdm.rules.participant"
+    _description = "Redemption Rule Tenant Participant Type"
+    _columns = {
+        'rules_detail_id': fields.many2one('rdm.rules.detail','Rules ID', readonly=True),
+        'participant_id': fields.selection(AVAILABLE_PARTICIPANT,'Participant Type',required=True), 
+    }
+
+rdm_rules_participant()
 
 class rdm_rules_card_type(osv.osv):
     _name = "rdm.rules.card.type"
